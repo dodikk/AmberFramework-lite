@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'AmberFoundation' target in the 'AmberFoundation' project
+//
+
+#ifdef __OBJC__
+   #import <Foundation/Foundation.h>
+#endif

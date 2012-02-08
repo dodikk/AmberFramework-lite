@@ -1,0 +1,331 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		53A0190A14E27A720007DC05 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53A0190914E27A720007DC05 /* Foundation.framework */; };
+		53A0191914E27B030007DC05 /* NSData+Crypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 53A0191714E27B030007DC05 /* NSData+Crypto.h */; };
+		53A0191A14E27B030007DC05 /* NSData+Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A0191814E27B030007DC05 /* NSData+Crypto.m */; };
+		53A0192614E27BA00007DC05 /* AmberFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 53A0192514E27BA00007DC05 /* AmberFoundation.h */; };
+		53A0192914E27BB40007DC05 /* NSData+Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A0191814E27B030007DC05 /* NSData+Crypto.m */; };
+		53A0192B14E27BB40007DC05 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53A0190914E27A720007DC05 /* Foundation.framework */; };
+		53A0192D14E27BB40007DC05 /* NSData+Crypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 53A0191714E27B030007DC05 /* NSData+Crypto.h */; };
+		53A0192E14E27BB40007DC05 /* AmberFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 53A0192514E27BA00007DC05 /* AmberFoundation.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		53A0190614E27A720007DC05 /* libAmberFoundation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAmberFoundation.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		53A0190914E27A720007DC05 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		53A0190D14E27A720007DC05 /* AmberFoundation-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AmberFoundation-Prefix.pch"; sourceTree = "<group>"; };
+		53A0191714E27B030007DC05 /* NSData+Crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Crypto.h"; sourceTree = SOURCE_ROOT; };
+		53A0191814E27B030007DC05 /* NSData+Crypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Crypto.m"; sourceTree = SOURCE_ROOT; };
+		53A0192514E27BA00007DC05 /* AmberFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmberFoundation.h; sourceTree = SOURCE_ROOT; };
+		53A0193214E27BB40007DC05 /* libAmberFoundatio-clang.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libAmberFoundatio-clang.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		53A0190314E27A720007DC05 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53A0190A14E27A720007DC05 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53A0192A14E27BB40007DC05 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53A0192B14E27BB40007DC05 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		53A018FB14E27A720007DC05 = {
+			isa = PBXGroup;
+			children = (
+				53A0190B14E27A720007DC05 /* AmberFoundation */,
+				53A0190814E27A720007DC05 /* Frameworks */,
+				53A0190714E27A720007DC05 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		53A0190714E27A720007DC05 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				53A0190614E27A720007DC05 /* libAmberFoundation.a */,
+				53A0193214E27BB40007DC05 /* libAmberFoundatio-clang.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		53A0190814E27A720007DC05 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				53A0190914E27A720007DC05 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		53A0190B14E27A720007DC05 /* AmberFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				53A0192514E27BA00007DC05 /* AmberFoundation.h */,
+				53A0191614E27AF70007DC05 /* src */,
+				53A0190C14E27A720007DC05 /* Supporting Files */,
+			);
+			path = AmberFoundation;
+			sourceTree = "<group>";
+		};
+		53A0190C14E27A720007DC05 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				53A0190D14E27A720007DC05 /* AmberFoundation-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		53A0191614E27AF70007DC05 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				53A0191714E27B030007DC05 /* NSData+Crypto.h */,
+				53A0191814E27B030007DC05 /* NSData+Crypto.m */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		53A0190414E27A720007DC05 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53A0191914E27B030007DC05 /* NSData+Crypto.h in Headers */,
+				53A0192614E27BA00007DC05 /* AmberFoundation.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53A0192C14E27BB40007DC05 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53A0192D14E27BB40007DC05 /* NSData+Crypto.h in Headers */,
+				53A0192E14E27BB40007DC05 /* AmberFoundation.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		53A0190514E27A720007DC05 /* AmberFoundation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 53A0191314E27A720007DC05 /* Build configuration list for PBXNativeTarget "AmberFoundation" */;
+			buildPhases = (
+				53A0190214E27A720007DC05 /* Sources */,
+				53A0190314E27A720007DC05 /* Frameworks */,
+				53A0190414E27A720007DC05 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AmberFoundation;
+			productName = AmberFoundation;
+			productReference = 53A0190614E27A720007DC05 /* libAmberFoundation.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		53A0192714E27BB40007DC05 /* AmberFoundatio-clang */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 53A0192F14E27BB40007DC05 /* Build configuration list for PBXNativeTarget "AmberFoundatio-clang" */;
+			buildPhases = (
+				53A0192814E27BB40007DC05 /* Sources */,
+				53A0192A14E27BB40007DC05 /* Frameworks */,
+				53A0192C14E27BB40007DC05 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AmberFoundatio-clang";
+			productName = AmberFoundation;
+			productReference = 53A0193214E27BB40007DC05 /* libAmberFoundatio-clang.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		53A018FD14E27A720007DC05 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = EPAM;
+			};
+			buildConfigurationList = 53A0190014E27A720007DC05 /* Build configuration list for PBXProject "AmberFoundation" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 53A018FB14E27A720007DC05;
+			productRefGroup = 53A0190714E27A720007DC05 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				53A0190514E27A720007DC05 /* AmberFoundation */,
+				53A0192714E27BB40007DC05 /* AmberFoundatio-clang */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		53A0190214E27A720007DC05 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53A0191A14E27B030007DC05 /* NSData+Crypto.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53A0192814E27BB40007DC05 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53A0192914E27BB40007DC05 /* NSData+Crypto.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		53A0191114E27A720007DC05 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		53A0191214E27A720007DC05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		53A0191414E27A720007DC05 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/AmberFoundation.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AmberFoundation/AmberFoundation-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		53A0191514E27A720007DC05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/AmberFoundation.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AmberFoundation/AmberFoundation-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		53A0193014E27BB40007DC05 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/AmberFoundation.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AmberFoundation/AmberFoundation-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "AmberFoundatio-clang";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		53A0193114E27BB40007DC05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/AmberFoundation.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AmberFoundation/AmberFoundation-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "AmberFoundatio-clang";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		53A0190014E27A720007DC05 /* Build configuration list for PBXProject "AmberFoundation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53A0191114E27A720007DC05 /* Debug */,
+				53A0191214E27A720007DC05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		53A0191314E27A720007DC05 /* Build configuration list for PBXNativeTarget "AmberFoundation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53A0191414E27A720007DC05 /* Debug */,
+				53A0191514E27A720007DC05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		53A0192F14E27BB40007DC05 /* Build configuration list for PBXNativeTarget "AmberFoundatio-clang" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53A0193014E27BB40007DC05 /* Debug */,
+				53A0193114E27BB40007DC05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 53A018FD14E27A720007DC05 /* Project object */;
+}
