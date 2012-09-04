@@ -7,3 +7,4 @@ svnignore.*
 *.pbxuser
 xcuserdata
 *.xcworkspace
+._*
