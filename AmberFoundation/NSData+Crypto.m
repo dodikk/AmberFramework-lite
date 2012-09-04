@@ -67,7 +67,11 @@ static const char _base64Padding[1] = "=";
 	if ([[base64String stringByTrimmingCharactersInSet:base64CharacterSet] length] != 0) return nil;
 	
 	NSUInteger paddingCharacters = 0; // 2, 1, 0 are allowed
+    
+    
 	NSRange paddingRange = {NSNotFound, 0};
+    #pragma unused(paddingRange)
+    
 	do {
 		paddingRange = [base64String rangeOfString:@"=" options:(NSAnchoredSearch | NSBackwardsSearch) range:NSMakeRange(0, ([base64String length] - paddingCharacters))];
 		if (paddingRange.location != NSNotFound) paddingCharacters++;
@@ -191,7 +195,8 @@ static const char _base32Padding[1] = "=";
 	
 	NSUInteger paddingCharacters = 0; // 6, 4, 3, 1, 0 are allowed
 	NSRange paddingRange = {NSNotFound, 0};
-
+    #pragma unused(paddingRange)
+    
 	do {
 		paddingRange = [base32String rangeOfString:@"=" options:(NSAnchoredSearch | NSBackwardsSearch) range:NSMakeRange(0, ([base32String length] - paddingCharacters))];
 		if (paddingRange.location != NSNotFound) paddingCharacters++;
