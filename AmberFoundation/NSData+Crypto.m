@@ -20,9 +20,9 @@
 - (NSData *)MD5Hash {
 	unsigned char digest[CC_MD5_DIGEST_LENGTH];
 	
-	CFRetain(self);
-	CC_MD5([self bytes], [self length], digest);
-	CFRelease(self);
+    CFTypeRef retainedSelf = CFRetain(self);
+	CC_MD5( [self bytes], [self length], digest );
+	CFRelease( retainedSelf );
 	
 	return [NSData dataWithBytes:&digest length:CC_MD5_DIGEST_LENGTH];
 }
@@ -30,9 +30,9 @@
 - (NSData *)SHA1Hash {
 	unsigned char digest[CC_SHA1_DIGEST_LENGTH];
 	
-	CFRetain(self);
+    CFTypeRef retainedSelf = CFRetain( self );
 	CC_SHA1([self bytes], [self length], digest);
-	CFRelease(self);
+	CFRelease( retainedSelf );
 	
 	return [NSData dataWithBytes:&digest length:CC_SHA1_DIGEST_LENGTH];
 }
@@ -40,11 +40,14 @@
 - (NSData *)HMACUsingSHA1_withSecretKey:(NSData *)secretKey {
 	unsigned char digest[CC_SHA1_DIGEST_LENGTH];
 	
-	CFRetain(self); CFRetain(secretKey);
+	CFTypeRef retainedSelf = CFRetain(self);
+    CFTypeRef retainedKey  = CFRetain(secretKey);
+
 	
 	CCHmac(kCCHmacAlgSHA1, [secretKey bytes], [secretKey length], [self bytes], [self length], &digest);
 	
-	CFRelease(self); CFRelease(secretKey);
+	CFRelease(retainedSelf);
+    CFRelease(retainedKey);
 	
 	return [NSData dataWithBytes:digest length:CC_SHA1_DIGEST_LENGTH];
 }
@@ -67,7 +70,11 @@ static const char _base64Padding[1] = "=";
 	if ([[base64String stringByTrimmingCharactersInSet:base64CharacterSet] length] != 0) return nil;
 	
 	NSUInteger paddingCharacters = 0; // 2, 1, 0 are allowed
+    
+    
 	NSRange paddingRange = {NSNotFound, 0};
+    #pragma unused(paddingRange)
+    
 	do {
 		paddingRange = [base64String rangeOfString:@"=" options:(NSAnchoredSearch | NSBackwardsSearch) range:NSMakeRange(0, ([base64String length] - paddingCharacters))];
 		if (paddingRange.location != NSNotFound) paddingCharacters++;
@@ -77,7 +84,7 @@ static const char _base64Padding[1] = "=";
 	
 	
 	NSMutableData *data = [NSMutableData dataWithCapacity:(([base64String length] / 4) * 3)];
-	CFRetain(base64String);
+    CFTypeRef retainedBase64 = CFRetain(base64String);
 	
 	NSUInteger characterOffset = 0;
 	while (characterOffset < [base64String length]) {
@@ -122,7 +129,7 @@ static const char _base64Padding[1] = "=";
 		characterOffset += 4;
 	}
 	
-	CFRelease(base64String);
+	CFRelease(retainedBase64);
 	
 	return data;
 }
@@ -130,7 +137,7 @@ static const char _base64Padding[1] = "=";
 - (NSString *)base64String {
 	NSMutableString *string = [NSMutableString stringWithCapacity:(([self length] / 3) * 4)];
 	
-	CFRetain(self);
+    CFTypeRef retainedSelf = CFRetain(self);
 	
 	const uint8_t *currentByte = [self bytes];
 	NSUInteger byteOffset = 0;
@@ -171,7 +178,7 @@ static const char _base64Padding[1] = "=";
 		currentByte += 3;
 	}
 	
-	CFRelease(self);
+	CFRelease(retainedSelf);
 	
 	return string;
 }
@@ -191,7 +198,8 @@ static const char _base32Padding[1] = "=";
 	
 	NSUInteger paddingCharacters = 0; // 6, 4, 3, 1, 0 are allowed
 	NSRange paddingRange = {NSNotFound, 0};
-
+    #pragma unused(paddingRange)
+    
 	do {
 		paddingRange = [base32String rangeOfString:@"=" options:(NSAnchoredSearch | NSBackwardsSearch) range:NSMakeRange(0, ([base32String length] - paddingCharacters))];
 		if (paddingRange.location != NSNotFound) paddingCharacters++;
@@ -201,7 +209,8 @@ static const char _base32Padding[1] = "=";
 	
 	
 	NSMutableData *data = [NSMutableData dataWithCapacity:(([base32String length] / 8) * 5)];
-	CFRetain(base32String);
+    
+    CFTypeRef retainedBase32 = CFRetain(base32String);
 	
 	NSUInteger characterOffset = 0;
 	while (characterOffset < [base32String length]) {
@@ -269,7 +278,7 @@ static const char _base32Padding[1] = "=";
 		characterOffset += 8;
 	}
 	
-	CFRelease(base32String);
+	CFRelease(retainedBase32);
 	
 	return data;
 }
@@ -277,7 +286,7 @@ static const char _base32Padding[1] = "=";
 - (NSString *)base32String {
 	NSMutableString *string = [NSMutableString stringWithCapacity:(([self length] / 5) * 8)];
 	
-	CFRetain(self);
+	CFTypeRef retainedSelf = CFRetain(self);
 	
 	const uint8_t *currentByte = [self bytes];
 	NSUInteger byteOffset = 0;
@@ -350,7 +359,7 @@ static const char _base32Padding[1] = "=";
 		currentByte += 5;
 	}
 	
-	CFRelease(self);
+	CFRelease(retainedSelf);
 	
 	return string;
 }
@@ -369,7 +378,7 @@ static const char _base16Alphabet[16] = "0123456789ABCDEF";
 	
 	
 	NSMutableData *data = [NSMutableData dataWithCapacity:([base16String length] / 2)];
-	CFRetain(base16String);
+    CFTypeRef retainedBase16 = CFRetain(base16String);
 	
 	NSUInteger characterOffset = 0;
 	while (characterOffset < [base16String length]) {
@@ -387,7 +396,7 @@ static const char _base16Alphabet[16] = "0123456789ABCDEF";
 		characterOffset += 2;
 	}
 	
-	CFRelease(base16String);
+	CFRelease(retainedBase16);
 	
 	return data;
 }
@@ -395,7 +404,7 @@ static const char _base16Alphabet[16] = "0123456789ABCDEF";
 - (NSString *)base16String {
 	NSMutableString *string = [NSMutableString stringWithCapacity:([self length] * 2)];
 	
-	CFRetain(self);
+    CFTypeRef retainedSelf = CFRetain(self);
 	
 	const uint8_t *currentByte = [self bytes];
 	NSUInteger byteOffset = 0;
@@ -409,7 +418,7 @@ static const char _base16Alphabet[16] = "0123456789ABCDEF";
 		byteOffset++;
 	}
 	
-	CFRelease(self);
+	CFRelease(retainedSelf);
 	
 	return string;
 }
