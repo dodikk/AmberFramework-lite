@@ -21,7 +21,10 @@
 	unsigned char digest[CC_MD5_DIGEST_LENGTH];
 	
     CFTypeRef retainedSelf = CFRetain(self);
-	CC_MD5( [self bytes], [self length], digest );
+    
+    CC_LONG castedLenght = static_cast<CC_LONG>( [self length] );
+    
+	CC_MD5( [self bytes], castedLenght, digest );
 	CFRelease( retainedSelf );
 	
 	return [NSData dataWithBytes:&digest length:CC_MD5_DIGEST_LENGTH];
@@ -31,7 +34,9 @@
 	unsigned char digest[CC_SHA1_DIGEST_LENGTH];
 	
     CFTypeRef retainedSelf = CFRetain( self );
-	CC_SHA1([self bytes], [self length], digest);
+    
+    CC_LONG castedLenght = static_cast<CC_LONG>( [self length] );
+	CC_SHA1([self bytes], castedLenght, digest);
 	CFRelease( retainedSelf );
 	
 	return [NSData dataWithBytes:&digest length:CC_SHA1_DIGEST_LENGTH];
@@ -56,8 +61,8 @@
 
 @implementation NSData (AFBaseConversion)
 
-static const char _base64Alphabet[64] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-static const char _base64Padding[1] = "=";
+static const char _base64Alphabet[64 + sizeof(char)] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+static const char _base64Padding[1 + sizeof(char)] = "=";
 
 + (id)dataWithBase64String:(NSString *)base64String {
 	if (([base64String length] % 4) != 0) return nil;
@@ -139,12 +144,12 @@ static const char _base64Padding[1] = "=";
 	
     CFTypeRef retainedSelf = CFRetain(self);
 	
-	const uint8_t *currentByte = [self bytes];
+	const uint8_t *currentByte = reinterpret_cast<const uint8_t*>( [self bytes] );
 	NSUInteger byteOffset = 0;
 	
 	while (byteOffset < [self length]) {
 		// Note: every 24 bits evaluates to 4 characters
-		char characters[4] = "====";
+		char characters[4 + sizeof(char)] = "====";
 		
 		// Note: first six bits depends on first byte
 		if (byteOffset < [self length]) {
@@ -183,8 +188,8 @@ static const char _base64Padding[1] = "=";
 	return string;
 }
 
-static const char _base32Alphabet[32] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
-static const char _base32Padding[1] = "=";
+static const char _base32Alphabet[32 + sizeof(char)] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+static const char _base32Padding[1 + sizeof(char)] = "=";
 
 + (id)dataWithBase32String:(NSString *)base32String {
 	if (([base32String length] % 8) != 0) return nil;
@@ -288,12 +293,12 @@ static const char _base32Padding[1] = "=";
 	
 	CFTypeRef retainedSelf = CFRetain(self);
 	
-	const uint8_t *currentByte = [self bytes];
+	const uint8_t *currentByte = reinterpret_cast<const uint8_t*>( [self bytes] );
 	NSUInteger byteOffset = 0;
 	
 	while (byteOffset < [self length]) {
 		// Note: every 40 bits evaluates to 8 characters
-		char characters[8] = "========";
+		char characters[8 + sizeof(char)] = "========";
 		
 		do {
 			// Note: the first five bits depend on the first byte
@@ -364,7 +369,7 @@ static const char _base32Padding[1] = "=";
 	return string;
 }
 
-static const char _base16Alphabet[16] = "0123456789ABCDEF";
+static const char _base16Alphabet[16 + sizeof(char)] = "0123456789ABCDEF";
 
 + (id)dataWithBase16String:(NSString *)base16String {
 	if (([base16String length] % 2) != 0) return nil;
@@ -406,7 +411,7 @@ static const char _base16Alphabet[16] = "0123456789ABCDEF";
 	
     CFTypeRef retainedSelf = CFRetain(self);
 	
-	const uint8_t *currentByte = [self bytes];
+	const uint8_t *currentByte = reinterpret_cast<const uint8_t*>( [self bytes] );
 	NSUInteger byteOffset = 0;
 	
 	while (byteOffset < [self length]) {
@@ -426,7 +431,7 @@ static const char _base16Alphabet[16] = "0123456789ABCDEF";
 - (NSString *)base2String {
 	NSMutableString *string = [NSMutableString stringWithCapacity:([self length] * 9)];
 	
-	const uint8_t *currentByte = [self bytes];
+	const uint8_t *currentByte = reinterpret_cast<const uint8_t*>( [self bytes] );
 	NSUInteger byteOffset = 0;
 	
 	while (byteOffset < [self length]) {

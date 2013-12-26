@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		53A0190A14E27A720007DC05 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53A0190914E27A720007DC05 /* Foundation.framework */; };
 		53A0191914E27B030007DC05 /* NSData+Crypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 53A0191714E27B030007DC05 /* NSData+Crypto.h */; };
-		53A0191A14E27B030007DC05 /* NSData+Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A0191814E27B030007DC05 /* NSData+Crypto.m */; };
+		53A0191A14E27B030007DC05 /* NSData+Crypto.mm in Sources */ = {isa = PBXBuildFile; fileRef = 53A0191814E27B030007DC05 /* NSData+Crypto.mm */; };
 		53A0192614E27BA00007DC05 /* AmberFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 53A0192514E27BA00007DC05 /* AmberFoundation.h */; };
-		53A0192914E27BB40007DC05 /* NSData+Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A0191814E27B030007DC05 /* NSData+Crypto.m */; };
+		53A0192914E27BB40007DC05 /* NSData+Crypto.mm in Sources */ = {isa = PBXBuildFile; fileRef = 53A0191814E27B030007DC05 /* NSData+Crypto.mm */; };
 		53A0192B14E27BB40007DC05 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53A0190914E27A720007DC05 /* Foundation.framework */; };
 		53A0192D14E27BB40007DC05 /* NSData+Crypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 53A0191714E27B030007DC05 /* NSData+Crypto.h */; };
 		53A0192E14E27BB40007DC05 /* AmberFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 53A0192514E27BA00007DC05 /* AmberFoundation.h */; };
@@ -22,7 +22,7 @@
 		53A0190914E27A720007DC05 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		53A0190D14E27A720007DC05 /* AmberFoundation-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AmberFoundation-Prefix.pch"; sourceTree = "<group>"; };
 		53A0191714E27B030007DC05 /* NSData+Crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Crypto.h"; sourceTree = SOURCE_ROOT; };
-		53A0191814E27B030007DC05 /* NSData+Crypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Crypto.m"; sourceTree = SOURCE_ROOT; };
+		53A0191814E27B030007DC05 /* NSData+Crypto.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSData+Crypto.mm"; sourceTree = SOURCE_ROOT; };
 		53A0192514E27BA00007DC05 /* AmberFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmberFoundation.h; sourceTree = SOURCE_ROOT; };
 		53A0193214E27BB40007DC05 /* libAmberFoundatio-clang.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libAmberFoundatio-clang.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -95,7 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				53A0191714E27B030007DC05 /* NSData+Crypto.h */,
-				53A0191814E27B030007DC05 /* NSData+Crypto.m */,
+				53A0191814E27B030007DC05 /* NSData+Crypto.mm */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -190,7 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53A0191A14E27B030007DC05 /* NSData+Crypto.m in Sources */,
+				53A0191A14E27B030007DC05 /* NSData+Crypto.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,7 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53A0192914E27BB40007DC05 /* NSData+Crypto.m in Sources */,
+				53A0192914E27BB40007DC05 /* NSData+Crypto.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
