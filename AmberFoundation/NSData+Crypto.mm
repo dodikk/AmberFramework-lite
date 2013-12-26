@@ -18,7 +18,7 @@
 @implementation NSData (AFHashing)
 
 - (NSData *)MD5Hash {
-	unsigned char digest[CC_MD5_DIGEST_LENGTH];
+	unsigned char digest[CC_MD5_DIGEST_LENGTH] = {0};
 	
     CFTypeRef retainedSelf = CFRetain(self);
     
@@ -27,11 +27,12 @@
 	CC_MD5( [self bytes], castedLenght, digest );
 	CFRelease( retainedSelf );
 	
-	return [NSData dataWithBytes:&digest length:CC_MD5_DIGEST_LENGTH];
+	return [NSData dataWithBytes:&digest
+                          length:CC_MD5_DIGEST_LENGTH];
 }
 
 - (NSData *)SHA1Hash {
-	unsigned char digest[CC_SHA1_DIGEST_LENGTH];
+	unsigned char digest[CC_SHA1_DIGEST_LENGTH] = {0};
 	
     CFTypeRef retainedSelf = CFRetain( self );
     
@@ -39,7 +40,8 @@
 	CC_SHA1([self bytes], castedLenght, digest);
 	CFRelease( retainedSelf );
 	
-	return [NSData dataWithBytes:&digest length:CC_SHA1_DIGEST_LENGTH];
+	return [NSData dataWithBytes:&digest
+                          length:CC_SHA1_DIGEST_LENGTH];
 }
 
 - (NSData *)HMACUsingSHA1_withSecretKey:(NSData *)secretKey {
@@ -102,7 +104,10 @@ static const char _base64Padding[1 + sizeof(char)] = "=";
 				continue;
 			}
 			
-			values[valueIndex] = (uint8_t)[base64Alphabet rangeOfString:[NSString stringWithFormat:@"%C", currentCharacter]].location;
+            NSString* searchPattern =[NSString stringWithFormat:@"%C", currentCharacter];
+            NSRange patternRange = [base64Alphabet rangeOfString:searchPattern];
+            
+			values[valueIndex] = static_cast<uint8_t>(patternRange.location);
 		}
 		
 		uint8_t bytes[3] = {0};
@@ -252,7 +257,10 @@ static const char _base32Padding[1 + sizeof(char)] = "=";
 				continue;
 			}
 			
-			values[valueIndex] = (uint8_t)[base32Alphabet rangeOfString:[NSString stringWithFormat:@"%C", currentCharacter]].location;
+            NSString* searchPattern = [NSString stringWithFormat:@"%C", currentCharacter];
+            NSRange patternRange = [base32Alphabet rangeOfString:searchPattern];
+            
+			values[valueIndex] = static_cast<uint8_t>( patternRange.location );
 		}
 		
 		// Note: there will always be at least two non-padding characters
@@ -456,7 +464,12 @@ static const char _base16Alphabet[16 + sizeof(char)] = "0123456789ABCDEF";
 		uint8_t values[2] = {0};
 		for (NSUInteger valueIndex = 0; valueIndex < 2; valueIndex++) {
 			unichar currentCharacter = [base16String characterAtIndex:(characterOffset + valueIndex)];
-			values[valueIndex] = (uint8_t)[base16Alphabet rangeOfString:[NSString stringWithFormat:@"%C", currentCharacter] options:NSCaseInsensitiveSearch].location;
+            
+            NSString* searchPattern = [NSString stringWithFormat:@"%C", currentCharacter];
+            NSRange patternSearchResult = [base16Alphabet rangeOfString: searchPattern
+                                                                options: NSCaseInsensitiveSearch];
+            
+			values[valueIndex] = static_cast<uint8_t>( patternSearchResult.location );
 		}
 		
 		uint8_t byte = 0;
