@@ -106,24 +106,43 @@ static const char _base64Padding[1 + sizeof(char)] = "=";
 		}
 		
 		uint8_t bytes[3] = {0};
-		
+        uint8_t mask = 0;
+        
 		// Note: first byte
 		{
 			// Note: there will always be at least two non-padding characters
-			bytes[0] = bytes[0] | ((values[0] & /* 0b111111 */ 63) << 2);
-			bytes[0] = bytes[0] | ((values[1] & /* 0b110000 */ 48) >> 4);
+            
+            auto tmpMask63 = ((values[0] & /* 0b111111 */ 63) << 2);
+            mask = static_cast<uint8_t>( tmpMask63 );
+			bytes[0] = bytes[0] | mask;
+            
+            
+            auto tmpMask48 = ((values[1] & /* 0b110000 */ 48) >> 4);
+            mask = mask = static_cast<uint8_t>( tmpMask48 );
+			bytes[0] = bytes[0] | mask;
 		}
 		
 		// Note: second byte
 		{
-			bytes[1] = bytes[1] | ((values[1] & /* 0b001111 */ 15) << 4);
-			bytes[1] = bytes[1] | (values[2] == UINT8_MAX ? 0 : ((values[2] & /* 0b111100 */ 60) >> 2));
+            auto tmpMask15 = ((values[1] & /* 0b001111 */ 15) << 4);
+            mask = static_cast<uint8_t>( tmpMask15 );
+			bytes[1] = bytes[1] | mask;
+            
+            auto tmpMask60 = (values[2] == UINT8_MAX ? 0 : ((values[2] & /* 0b111100 */ 60) >> 2));
+            mask = static_cast<uint8_t>( tmpMask60 );
+			bytes[1] = bytes[1] | mask;
 		}
 		
 		// Note: third byte
 		{
-			bytes[2] = bytes[2] | (values[2] == UINT8_MAX ? 0 : ((values[2] & /* 0b000011 */ 3)  << 6));
-			bytes[2] = bytes[2] | (values[3] == UINT8_MAX ? 0 : ((values[3] & /* 0b111111 */ 63) << 0));
+            auto tmpMask3 = (values[2] == UINT8_MAX ? 0 : ((values[2] & /* 0b000011 */ 3)  << 6));
+            mask = static_cast<uint8_t>( tmpMask3 );
+			bytes[2] = bytes[2] | mask;
+            
+            
+            auto tmpMask63 = (values[3] == UINT8_MAX ? 0 : ((values[3] & /* 0b111111 */ 63) << 0));
+            mask = static_cast<uint8_t>( tmpMask63 );
+			bytes[2] = bytes[2] | mask;
 		}
 		
 		NSUInteger byteCount = 3;
@@ -159,14 +178,19 @@ static const char _base64Padding[1 + sizeof(char)] = "=";
 		
 		// Note: second six bits depends on first byte
 		if (byteOffset < [self length]) {
-			uint8_t bits = ((*currentByte & /* 0b00000011 */ 3) << 4);
+            auto rawBits = ((*currentByte & /* 0b00000011 */ 3) << 4);
+			uint8_t bits = static_cast<uint8_t>( rawBits );
+
+            
 			bits = bits | (((byteOffset + 1) > [self length]) ? 0 : (*(currentByte + 1) & /* 0b11110000 */ 240) >> 4);
 			characters[1] = _base64Alphabet[bits];
 		}
 		
 		// Note: third six bits depends on second byte
 		if ((byteOffset + 1) < [self length]) {
-			uint8_t bits = ((*(currentByte + 1) & /* 0b00001111 */ 15) << 2);
+			auto rawBits = ((*(currentByte + 1) & /* 0b00001111 */ 15) << 2);
+            uint8_t bits = static_cast<uint8_t>( rawBits );
+            
 			bits = bits | (((byteOffset + 2) > [self length]) ? 0 : (*(currentByte + 2) & /* 0b11000000 */ 192) >> 6);
 			characters[2] = _base64Alphabet[bits];
 		}
@@ -235,46 +259,80 @@ static const char _base32Padding[1 + sizeof(char)] = "=";
 		
 		NSUInteger byteCount = 0;
 		uint8_t bytes[5] = {0};
-		
+		uint8_t mask = 0;
+        
 		do {
 			// Note: first byte
 			{
-				bytes[0] = bytes[0] | ((values[0] & /* 0b11111 */ 31) << 3);
-				bytes[0] = bytes[0] | ((values[1] & /* 0b11100 */ 28) >> 2);
+                auto tmpMask31  = ((values[0] & /* 0b11111 */ 31) << 3);
+                mask = static_cast<uint8_t>( tmpMask31 );
+				bytes[0] = bytes[0] | mask;
+                
+                auto tmpMask28 = ((values[1] & /* 0b11100 */ 28) >> 2);
+                mask = static_cast<uint8_t>( tmpMask28 );
+				bytes[0] = bytes[0] | mask;
 			}
 			byteCount++;
 			
 			// Note: second byte
 			if (values[2] == UINT8_MAX) break;
 			{
-				bytes[1] = bytes[1] | ((values[1] & /* 0b00011 */ 3)  << 6);
-				bytes[1] = bytes[1] | ((values[2] & /* 0b11111 */ 31) << 1);
-				bytes[1] = bytes[1] | ((values[3] & /* 0b10000 */ 16) >> 4);
+                auto tmpMask3 = ((values[1] & /* 0b00011 */ 3)  << 6);
+                mask = static_cast<uint8_t>( tmpMask3 );
+				bytes[1] = bytes[1] | mask;
+                
+                auto tmpMask31 =  ((values[2] & /* 0b11111 */ 31) << 1);
+                mask = static_cast<uint8_t>( tmpMask31 );
+				bytes[1] = bytes[1] | mask;
+                
+                auto tmpMask16 = ((values[3] & /* 0b10000 */ 16) >> 4);
+                mask = static_cast<uint8_t>( tmpMask16 );
+				bytes[1] = bytes[1] | mask;
 			}
 			byteCount++;
 			
 			// Note: third byte
 			if (values[4] == UINT8_MAX) break;
 			{
-				bytes[2] = bytes[2] | ((values[3] & /* 0b01111 */ 15) << 4);
-				bytes[2] = bytes[2] | ((values[4] & /* 0b11110 */ 30) >> 1);
+                auto tmpMask15 = ((values[3] & /* 0b01111 */ 15) << 4);
+                mask = static_cast<uint8_t>( tmpMask15 );
+				bytes[2] = bytes[2] | mask;
+                
+                
+                auto tmpMask30 = ((values[4] & /* 0b11110 */ 30) >> 1);
+                mask = static_cast<uint8_t>( tmpMask30 );
+				bytes[2] = bytes[2] | mask;
+                
 			}
 			byteCount++;
 			
 			// Note: fourth byte
 			if (values[5] == UINT8_MAX) break;
 			{
-				bytes[3] = bytes[3] | ((values[4] & /* 0b00001 */ 1)  << 7);
-				bytes[3] = bytes[3] | ((values[5] & /* 0b11111 */ 31) << 2);
-				bytes[3] = bytes[3] | ((values[6] & /* 0b11000 */ 24) >> 3);
+                auto tmpMask1 = ((values[4] & /* 0b00001 */ 1)  << 7);
+                mask = static_cast<uint8_t>( tmpMask1 );
+				bytes[3] = bytes[3] | mask;
+				
+                auto tmpMask31 = ((values[5] & /* 0b11111 */ 31) << 2);
+                mask = static_cast<uint8_t>( tmpMask31 );
+                bytes[3] = bytes[3] | mask;
+                
+                auto tmpMask24 = ((values[6] & /* 0b11000 */ 24) >> 3);
+                mask = static_cast<uint8_t>( tmpMask24 );
+				bytes[3] = bytes[3] | mask;
 			}
 			byteCount++;
 			
 			// Note: fifth byte
 			if (values[7] == UINT8_MAX) break;
 			{
-				bytes[4] = bytes[4] | ((values[6] & /* 0b00111 */ 7)  << 5);
-				bytes[4] = bytes[4] | ((values[7] & /* 0b11111 */ 31) << 0);
+                auto tmpMask7 = ((values[6] & /* 0b00111 */ 7)  << 5);
+                mask = static_cast<uint8_t>( tmpMask7 );
+				bytes[4] = bytes[4] | mask;
+                
+                auto tmpMask31 = ((values[7] & /* 0b11111 */ 31) << 0);
+                mask = static_cast<uint8_t>( tmpMask31 );
+				bytes[4] = bytes[4] | mask;
 			}
 			byteCount++;
 		} while (NO);
@@ -296,6 +354,7 @@ static const char _base32Padding[1 + sizeof(char)] = "=";
 	const uint8_t *currentByte = reinterpret_cast<const uint8_t*>( [self bytes] );
 	NSUInteger byteOffset = 0;
 	
+    
 	while (byteOffset < [self length]) {
 		// Note: every 40 bits evaluates to 8 characters
 		char characters[8 + sizeof(char)] = "========";
@@ -309,7 +368,8 @@ static const char _base32Padding[1 + sizeof(char)] = "=";
 			
 			// Note: the second five bits depend on the first byte
 			{
-				uint8_t bits = ((*currentByte & /* 0b00000111 */ 7) << 2); 
+                auto rawBits = ((*currentByte & /* 0b00000111 */ 7) << 2);
+				uint8_t bits = static_cast<uint8_t>( rawBits );
 				bits = bits | (((byteOffset + 1) > [self length]) ? 0 : ((*(currentByte + 1) & /* 0b11000000 */ 192) >> 6));
 				characters[1] = _base32Alphabet[bits];
 			}
@@ -323,7 +383,9 @@ static const char _base32Padding[1 + sizeof(char)] = "=";
 			
 			// Note: the fourth five bits depend on the second byte
 			{
-				uint8_t bits = ((*(currentByte + 1) & /* 0b00000001 */ 1) << 4);
+                auto rawBits = ((*(currentByte + 1) & /* 0b00000001 */ 1) << 4);
+                uint8_t bits = static_cast<uint8_t>( rawBits );
+
 				bits = bits | ((byteOffset + 2 > [self length]) ? 0 : (((*(currentByte + 2)) & /* 0b11110000 */ 240) >> 4));
 				characters[3] = _base32Alphabet[bits];
 			}
@@ -331,7 +393,9 @@ static const char _base32Padding[1 + sizeof(char)] = "=";
 			// Note: the fifth five bits depend on the third byte
 			if ((byteOffset + 3) > [self length]) break;
 			{
-				uint8_t bits = ((*(currentByte + 2) & /* 0b00001111 */ 15) << 1);
+                auto rawBits = ((*(currentByte + 2) & /* 0b00001111 */ 15) << 1);
+                uint8_t bits = static_cast<uint8_t>( rawBits );
+                
 				bits = bits | ((byteOffset + 3 > [self length]) ? 0 : ((*(currentByte + 3) & /* 0b1000000 */ 128) >> 7));
 				characters[4] = _base32Alphabet[bits];
 			}
@@ -345,7 +409,9 @@ static const char _base32Padding[1 + sizeof(char)] = "=";
 			
 			// Note: the seventh five bits depend on the fourth byte
 			{
-				uint8_t bits = ((*(currentByte + 3) & /* 0b00000011 */ 3) << 3);
+                auto rawBits = ((*(currentByte + 3) & /* 0b00000011 */ 3) << 3);
+                uint8_t bits = static_cast<uint8_t>( rawBits );
+                
 				bits = bits | ((byteOffset + 4 > [self length]) ? 0 : ((*(currentByte + 4) & /* 0b11100000 */ 224) >> 5));
 				characters[6] = _base32Alphabet[bits];
 			}
@@ -394,8 +460,11 @@ static const char _base16Alphabet[16 + sizeof(char)] = "0123456789ABCDEF";
 		}
 		
 		uint8_t byte = 0;
-		byte = byte | (values[0] << 4);
-		byte = byte | (values[1] << 0);
+        auto tmpMask4 = (values[0] << 4);
+		byte = byte | static_cast<uint8_t>( tmpMask4 );
+        
+        auto mask0 = (values[1] << 0);
+		byte = byte | static_cast<uint8_t>( mask0 );
 		
 		[data appendBytes:&byte length:1];
 		characterOffset += 2;
